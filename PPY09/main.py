@@ -3,7 +3,6 @@ import pandas as pd
 from datetime import datetime
 import matplotlib.pyplot as plt
 
-# Sample data
 books = [
     {'book': 'Harry Potter', 'price': 10.00},
     {'book': 'The Hobbit', 'price': 12.00},
@@ -20,21 +19,28 @@ persons = [
 reservations = []
 
 
-# Home Page
+class Reservation:
+    def __init__(self, book_title, days, start_date):
+        self.book_title = book_title
+        self.days = days
+        self.start_date = start_date
+
+    def __str__(self):
+        return '(Book: {0}, Days: {1}, Start date: {2})'.format(self.book_title, self.days, self.start_date)
+
+
 def home():
     st.title("Book Rental System")
     st.write(
         "Welcome to the Book Rental System. You can browse available books, make reservations, and check your reservations.")
 
 
-# View Books Page
 def view_books():
     st.title("Available Books")
     df_books = pd.DataFrame(books)
     st.table(df_books)
 
 
-# Make Reservation Page
 def make_reservation():
     st.title("Make a Reservation")
     person_id = st.number_input("Enter your ID", min_value=0, step=1)
@@ -57,7 +63,6 @@ def make_reservation():
         st.error("Person not found")
 
 
-# Check Reservations Page
 def check_reservations():
     st.title("Check Reservations")
     person_id = st.number_input("Enter your ID", min_value=0, step=1)
@@ -73,7 +78,6 @@ def check_reservations():
         st.error("Person not found")
 
 
-# Reservations Statistics Page
 def reservations_statistics():
     st.title("Reservations Statistics")
     current_month = datetime.now().month
@@ -95,7 +99,6 @@ def reservations_statistics():
     st.pyplot(plt)
 
 
-# Main App
 def main():
     st.sidebar.title("Navigation")
     options = ["Home", "View Books", "Make Reservation", "Check Reservations", "Reservations Statistics"]
